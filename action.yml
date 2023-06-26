@@ -29,7 +29,7 @@ runs:
       id: load
       shell: bash
       run: |
-        echo "image_tag=${{ inputs.variable-prefix }}_${{ github.sha }}" >> $GITHUB_ENV
+        echo "image_tag=${{ vars[format('{0}_{1}', inputs.variable-prefix, github.sha)] }}" >> $GITHUB_ENV
     - name: Get or create image_tag
       id: get-or-create
       shell: bash
