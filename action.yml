@@ -18,10 +18,10 @@ inputs:
 outputs:
   image-tag:
     description: 'The docker image tag that should be used for a given commit SHA.'
-    value: "${{ steps.arm64-instance.outputs.instance-id }}"
+    value: "${{ steps.get-or-create.outputs.image_tag }}"
   existing-tag-found:
     description: 'Whether or not an existing docker image tag was found in Repository Variables for a given commit SHA.'
-    value: "${{ steps.get-or-create.outputs.instance-id }}"
+    value: "${{ steps.get-or-create.outputs.found }}"
 runs:
   using: 'composite'
   steps:
