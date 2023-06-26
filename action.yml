@@ -29,7 +29,7 @@ runs:
       id: load
       shell: bash
       run: |
-        echo "image_tag=${{ vars[format('{0}_{1}', inputs.variable-prefix, github.sha)] }}" >> $GITHUB_ENV
+        echo "image_tag=${{ inputs.variable-prefix }}_${{ github.sha }}" >> $GITHUB_ENV
     - name: Get or create image_tag
       id: get-or-create
       shell: bash
@@ -46,6 +46,6 @@ runs:
       if: ${{ steps.get-or-create.outputs.found }} == 'true'
       uses: action-pack/set-variable@v1
       with:
-        name: ${{ vars[format('{0}_{1}', inputs.variable-prefix, github.sha)] }}
+        name: ${{ inputs.variable-prefix }}_${{ github.sha }}
         value: ${{ steps.get-or-create.outputs.image_tag }}
         token: ${{ inputs.token }}
