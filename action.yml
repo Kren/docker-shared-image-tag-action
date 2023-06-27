@@ -17,6 +17,7 @@ outputs:
     description: 'The docker image tag that should be used for a given commit SHA.'
   found:
     description: 'Whether or not an existing docker image tag was found in Repository Variables for a given commit SHA.'
+
 runs:
   using: 'node16'
   main: 'dist/index.js'
