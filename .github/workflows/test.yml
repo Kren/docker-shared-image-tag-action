@@ -23,7 +23,6 @@ jobs:
         with:
           new-image-tag: "test-tag:${{ github.run_number }}"
           token: "${{ secrets.PERSONAL_TOKEN }}"
-          variable-prefix: "TEST_PREFIX"
       - name: Print Docker Image Tag to use
         run: |
           echo image-tag ${{ steps.create-tag.outputs.image-tag }}
@@ -40,7 +39,6 @@ jobs:
         with:
           new-image-tag: "test-tag:${{ github.run_number }}"
           token: "${{ secrets.PERSONAL_TOKEN }}"
-          variable-prefix: "TEST_PREFIX"
       - name: Print Docker Image Tag to use
         run: |
           echo image-tag ${{ steps.reuse-tag.outputs.image-tag }}
