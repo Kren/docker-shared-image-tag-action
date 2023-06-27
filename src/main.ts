@@ -3,21 +3,19 @@ import {context} from '@actions/github'
 import {Octokit} from '@octokit/core'
 
 const name = `IMAGE_TAG_${context.sha}`
-const value = getInput("new-image-tag")
+const value = getInput('new-image-tag')
 
-const repo = context.payload.repository?.name ?? ""
-const owner = context.payload.repository?.owner.login ?? ""
+const repo = context.payload.repository?.name ?? ''
+const owner = context.payload.repository?.owner.login ?? ''
 const baseUrl =
-  getInput("org") !== 'false' ? `/orgs/${owner}`
-    : repo.includes("/") ? `/repos/${repo}`
-    : `/repos/${owner}/${repo}`
+  getInput('org') !== 'false' ? `/orgs/${owner}` : repo.includes('/') ? `/repos/${repo}` : `/repos/${owner}/${repo}`
 const url = `${baseUrl}/actions/variables`
 
-const octokit = new Octokit({ auth: getInput("token") })
+const octokit = new Octokit({auth: getInput('token')})
 
-async function run(): Promise<string> {
+async function run(): Promise<void> {
   try {
-    const response = await octokit.request(`GET ${url}/${name}`, { owner, repo, name })
+    const response = await octokit.request(`GET ${url}/${name}`, {owner, repo, name})
     if (response.status === 200) {
       setOutput(name, response.data)
       setOutput('found', 'true')
@@ -25,10 +23,12 @@ async function run(): Promise<string> {
       console.log(`Successfully found variable ${name} with value ${value}`)
       return
     }
-  } catch (e) { /* variable does not exist */ }
+  } catch (e) {
+    /* variable does not exist */
+  }
 
   try {
-    const response = await octokit.request(`POST ${url}`, { owner, repo, name, value })
+    const response = await octokit.request(`POST ${url}`, {owner, repo, name, value})
     if (response.status !== 201) throw new Error(`ERROR: Wrong status was returned: ${response.status}`)
 
     setOutput(name, value)
@@ -39,8 +39,6 @@ async function run(): Promise<string> {
   } catch (error) {
     if (error instanceof Error) setFailed(error.message)
   }
-
-
 }
 
 run()
