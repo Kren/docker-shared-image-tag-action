@@ -10841,7 +10841,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core_1 = __nccwpck_require__(2186);
 const github_1 = __nccwpck_require__(5438);
 const core_2 = __nccwpck_require__(6762);
-const name = `IMAGE_TAG_${github_1.context.sha}`;
+const name = `${(0, core_1.getInput)('variable-prefix')}_${github_1.context.sha}`;
 const value = (0, core_1.getInput)('new-image-tag');
 const repo = github_1.context.payload.repository?.name ?? '';
 const owner = github_1.context.payload.repository?.owner.login ?? '';
