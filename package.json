@@ -2,7 +2,7 @@
   "name": "docker-shared-image-tag-action",
   "version": "0.0.0",
   "private": true,
-  "description": "GitHub action to run an EC2 instance",
+  "description": "GitHub action to save docker image tags as a repository variable",
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
