@@ -11,6 +11,10 @@ inputs:
   token:
     required: true
     description: 'The API or personal access token to authorize read and write access to Repository Variables. Note: secrets.GITHUB_TOKEN will not work here.'
+  org:
+    description: Flag for organization
+    default: false
+    required: false
 
 outputs:
   image-tag:
