@@ -2,7 +2,7 @@ import {getInput, setFailed, setOutput} from '@actions/core'
 import {context} from '@actions/github'
 import {Octokit} from '@octokit/core'
 
-const name = `IMAGE_TAG_${context.sha}`
+const name = `${getInput('variable-prefix')}_${context.sha}`
 const value = getInput('new-image-tag')
 
 const repo = context.payload.repository?.name ?? ''
