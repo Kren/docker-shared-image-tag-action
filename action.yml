@@ -4,17 +4,22 @@ author: 'TrueMark'
 branding:
   icon: 'check-circle'
   color: 'red'
+
 inputs:
   new-image-tag:
     required: true
     description: 'The docker image tag to use if an existing one is not found in Repository Variables'
-  token:
-    required: true
-    description: 'The API or personal access token to authorize read and write access to Repository Variables. Note: secrets.GITHUB_TOKEN will not work here.'
   org:
     required: false
     description: 'Flag for organization'
     default: 'false'
+  token:
+    required: true
+    description: 'The API or personal access token to authorize read and write access to Repository Variables. Note: secrets.GITHUB_TOKEN will not work here.'
+  variable-prefix:
+    required: false
+    description: 'The prefix for the repository variable name to be stored. Must start with a letter and defaults to IMAGE_TAG. Example: IMAGE_TAG_<SHA>'
+    default: 'IMAGE_TAG'
 
 outputs:
   image-tag:
@@ -25,31 +30,3 @@ outputs:
 runs:
   using: 'node16'
   main: 'dist/index.js'
-
-#runs:
-#  using: 'composite'
-#  steps:
-#    - name: Load image_tag repository variable
-#      id: load
-#      shell: bash
-#      run: |
-#        echo "image_tag=${{ vars[format('{0}_{1}', inputs.variable-prefix, github.sha)] }}" >> $GITHUB_ENV
-#    - name: Get or create image_tag
-#      id: get-or-create
-#      shell: bash
-#      run: |
-#        if [ "$image_tag" == "" ]; then
-#          echo "image_tag=${{ inputs.new-image-tag }}" >> $GITHUB_OUTPUT
-#          echo "found=false" >> $GITHUB_OUTPUT
-#        else
-#          echo "image_tag=$image_tag" >> $GITHUB_OUTPUT
-#          echo "found=true" >> $GITHUB_OUTPUT
-#        fi
-#    - name: Save image_tag Repository Variable
-#      id: save
-#      if: ${{ steps.get-or-create.outputs.found }} == 'true'
-#      uses: action-pack/set-variable@v1
-#      with:
-#        name: ${{ inputs.variable-prefix }}_${{ github.sha }}
-#        value: ${{ steps.get-or-create.outputs.image_tag }}
-#        token: ${{ inputs.token }}
