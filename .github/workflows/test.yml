@@ -27,7 +27,7 @@ jobs:
       - run: ls
       - name: Create shared Docker Image Tag
         id: create-tag
-        uses: ./../../
+        uses: ./
         with:
           new-image-tag: "test-tag:${{ github.run_number }}"
           token: "${{ secrets.PERSONAL_TOKEN }}"
@@ -43,7 +43,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Create shared Docker Image Tag
         id: reuse-tag
-        uses: ./../../
+        uses: ./
         with:
           new-image-tag: "test-tag:${{ github.run_number }}"
           token: "${{ secrets.PERSONAL_TOKEN }}"
