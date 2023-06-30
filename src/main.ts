@@ -2,8 +2,8 @@ import {getInput, setFailed, setOutput} from '@actions/core'
 import {context} from '@actions/github'
 import {Octokit} from '@octokit/core'
 
-const name = `${getInput('variable-prefix')}_${context.sha}`
 const value = getInput('new-image-tag')
+const name = `${getInput('variable-prefix')}_${context.sha}`
 
 const repo = context.payload.repository?.name ?? ''
 const owner = context.payload.repository?.owner.login ?? ''
@@ -28,8 +28,12 @@ async function run(): Promise<void> {
   }
 
   try {
-    const response = await octokit.request(`POST ${url}`, {owner, repo, name, value})
-    if (response.status !== 201) throw new Error(`ERROR: Wrong status was returned: ${response.status}`)
+    for (let i = 0; i < 500; i++) {
+      const indexedName = `${name}${i}`
+      const indexedValue = `${value}${i}`
+      const response = await octokit.request(`POST ${url}`, {owner, repo, name: indexedName, value: indexedValue})
+      if (response.status !== 201) throw new Error(`ERROR: Wrong status was returned: ${response.status}`)
+    }
 
     setOutput(name, value)
     setOutput('found', 'false')
