@@ -29,18 +29,16 @@ async function run(): Promise<void> {
 
   try {
     for (let i = 0; i < 500; i++) {
-      console.log(i);
       const indexedName = `${name}${i}`
       const indexedValue = `${value}${i}`
       const response = await octokit.request(`POST ${url}`, {owner, repo, name: indexedName, value: indexedValue})
       if (response.status !== 201) throw new Error(`ERROR: Wrong status was returned: ${response.status}`)
-      else console.log(`Successfully uploaded ${indexedName} with value ${indexedValue}!`)
     }
 
     setOutput(name, value)
     setOutput('found', 'false')
 
-    console.log(`Successfully created variable: ${name} with value: ${value}`)
+    console.log(`Successfully created variable ${name} with value ${value}`)
     return
   } catch (error) {
     if (error instanceof Error) setFailed(error.message)

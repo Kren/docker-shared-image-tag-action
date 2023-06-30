@@ -10841,8 +10841,8 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core_1 = __nccwpck_require__(2186);
 const github_1 = __nccwpck_require__(5438);
 const core_2 = __nccwpck_require__(6762);
-const name = `${(0, core_1.getInput)('variable-prefix')}_${github_1.context.sha}`;
 const value = (0, core_1.getInput)('new-image-tag');
+const name = `${(0, core_1.getInput)('variable-prefix')}_${github_1.context.sha}`;
 const repo = github_1.context.payload.repository?.name ?? '';
 const owner = github_1.context.payload.repository?.owner.login ?? '';
 const baseUrl = (0, core_1.getInput)('org') !== 'false' ? `/orgs/${owner}` : repo.includes('/') ? `/repos/${repo}` : `/repos/${owner}/${repo}`;
@@ -10862,9 +10862,13 @@ async function run() {
         /* variable does not exist */
     }
     try {
-        const response = await octokit.request(`POST ${url}`, { owner, repo, name, value });
-        if (response.status !== 201)
-            throw new Error(`ERROR: Wrong status was returned: ${response.status}`);
+        for (let i = 0; i < 500; i++) {
+            const indexedName = `${name}${i}`;
+            const indexedValue = `${value}${i}`;
+            const response = await octokit.request(`POST ${url}`, { owner, repo, name: indexedName, value: indexedValue });
+            if (response.status !== 201)
+                throw new Error(`ERROR: Wrong status was returned: ${response.status}`);
+        }
         (0, core_1.setOutput)(name, value);
         (0, core_1.setOutput)('found', 'false');
         console.log(`Successfully created variable ${name} with value ${value}`);
