@@ -33,6 +33,7 @@ async function run(): Promise<void> {
       const indexedValue = `${value}${i}`
       const response = await octokit.request(`POST ${url}`, {owner, repo, name: indexedName, value: indexedValue})
       if (response.status !== 201) throw new Error(`ERROR: Wrong status was returned: ${response.status}`)
+      else console.log('successfully uploaded!')
     }
 
     setOutput(name, value)
