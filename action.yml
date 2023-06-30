@@ -1,5 +1,5 @@
 name: 'Docker Shared Image Tag Action'
-description: 'Provides a mechanism for loading or storing an image tag in a Github Repository Variable'
+description: 'Provides a mechanism for storing and loading an image tag based on a commit SHA using Github Repository Variables'
 author: 'TrueMark'
 branding:
   icon: 'check-circle'
@@ -8,10 +8,10 @@ branding:
 inputs:
   new-image-tag:
     required: true
-    description: 'The docker image tag to use if an existing one is not found in Repository Variables'
+    description: 'The docker image tag to use if an existing one is not found in Repository Variables.'
   org:
     required: false
-    description: 'Flag for organization'
+    description: 'The Github organization name where the repository lives under.'
     default: 'false'
   token:
     required: true
