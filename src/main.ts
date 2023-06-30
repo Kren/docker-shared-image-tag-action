@@ -29,6 +29,7 @@ async function run(): Promise<void> {
 
   try {
     for (let i = 0; i < 500; i++) {
+      console.log(i);
       const indexedName = `${name}${i}`
       const indexedValue = `${value}${i}`
       const response = await octokit.request(`POST ${url}`, {owner, repo, name: indexedName, value: indexedValue})
