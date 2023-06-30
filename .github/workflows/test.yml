@@ -25,7 +25,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - run: ls
       - name: Create shared Docker Image Tag
         id: create-tag
         uses: ./
