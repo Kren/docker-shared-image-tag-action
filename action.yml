@@ -11,7 +11,7 @@ inputs:
     description: 'The docker image tag to use if an existing one is not found in Repository Variables.'
   org:
     required: false
-    description: 'The Github organization name where the repository lives under.'
+    description: 'The Github organization name in which the repository lives under.'
     default: 'false'
   token:
     required: true
