@@ -30,7 +30,7 @@
     "@octokit/core": "^4.2.4"
   },
   "devDependencies": {
-    "@typescript-eslint/parser": "^5.60.1",
+    "@typescript-eslint/parser": "^5.62.0",
     "@vercel/ncc": "^0.36.1",
     "eslint": "^8.43.0",
     "eslint-plugin-github": "^4.8.0",
